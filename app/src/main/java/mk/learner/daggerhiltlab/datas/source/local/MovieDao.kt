@@ -2,42 +2,41 @@ package mk.learner.daggerhiltlab.datas.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import mk.learner.daggerhiltlab.datas.vo.PopularMovieVO
+import mk.learner.daggerhiltlab.datas.entities.MovieVO
 
 @Dao
 interface MovieDao {
 
-    @Query("select * FROM popular_movies")
-    fun observePopularMovies(): LiveData<List<PopularMovieVO>>
+    @Query("select * FROM Movie")
+    fun observeMovies(): LiveData<List<MovieVO>>
 
-    @Query("select * FROM popular_movies WHERE  id=:movie_id")
-    fun observePopularMovieById(movie_id: Int): LiveData<PopularMovieVO>
+    @Query("select * FROM Movie WHERE  id=:movie_id")
+    fun observeMovieById(movie_id: Int): LiveData<MovieVO>
 
-    @Query("SELECT * FROM popular_movies")
-    suspend fun getPopularMoviesList(): List<PopularMovieVO>
+    @Query("SELECT * FROM Movie")
+    suspend fun getMoviesList(): List<MovieVO>
 
-    @Query("SELECT * FROM popular_movies WHERE id = :movie_id")
-    suspend fun getPopularMovieById(movie_id: Int): PopularMovieVO?
-
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPopularMovieList(popular_movies: List<PopularMovieVO?>)
+    @Query("SELECT * FROM Movie WHERE id = :movie_id")
+    suspend fun getMovieById(movie_id: Int): MovieVO?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPopularMovie(popular_movies: PopularMovieVO)
+    suspend fun insertMovieList(_movies: List<MovieVO?>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMovie(_movies: MovieVO)
 
     @Update
-    suspend fun updatePopularMovie(movie: PopularMovieVO): Int
+    suspend fun updateMovie(movie: MovieVO): Int
 
-    @Query("UPDATE popular_movies SET  original_title = :title WHERE id = :movie_id")
+    @Query("UPDATE Movie SET  original_title = :title WHERE id = :movie_id")
     suspend fun updateMovieCompleted(movie_id: Int, title: String)
 
-    @Query("DELETE FROM popular_movies WHERE id = :movie_id")
-    suspend fun deletePopularMovieById(movie_id: Int): Int
+    @Query("DELETE FROM Movie WHERE id = :movie_id")
+    suspend fun deleteMovieById(movie_id: Int): Int
 
-    @Query("DELETE FROM popular_movies")
-    suspend fun deletePopularMovieDatas()
+    @Query("DELETE FROM Movie")
+    suspend fun deleteMovieDatas()
 
-    @Query("DELETE FROM popular_movies WHERE id = :movie_id")
+    @Query("DELETE FROM Movie WHERE id = :movie_id")
     suspend fun deleteCompletedMovie(movie_id: Int): Int
 }

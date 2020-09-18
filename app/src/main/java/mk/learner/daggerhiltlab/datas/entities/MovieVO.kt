@@ -1,13 +1,13 @@
-package mk.learner.daggerhiltlab.datas.vo
+package mk.learner.daggerhiltlab.datas.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "popular_movies")
+@Entity(tableName = "Movie")
 
-data class PopularMovieVO(
+data class MovieVO(
 
     @PrimaryKey
     @SerializedName("id")
