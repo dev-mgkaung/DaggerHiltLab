@@ -2,21 +2,20 @@ package mk.learner.daggerhiltlab.datas
 
 import androidx.lifecycle.LiveData
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
-import mk.learner.daggerhiltlab.utils.Resource
+import mk.learner.daggerhiltlab.datas.responses.MovieListResponse
+import mk.learner.daggerhiltlab.utils.Results
+import retrofit2.Response
 
 interface MovieDataSource {
 
-    fun observeMovies(): LiveData<Resource<List<MovieVO>>>
+     suspend  fun observeMovies(): Response<MovieListResponse>
 
-  //  fun observeMovieById(movie_id: Int): LiveData<Results<MovieVO>>
+     suspend fun getMovies(): Results<List<MovieVO>>
 
-    suspend fun getMovies(): Resource<List<MovieVO>>
+     suspend fun refreshMovies()
 
-    suspend fun refreshMovies()
+     suspend fun saveMovie(movieVO: MovieVO)
 
-    suspend fun saveMovie(movieVO: MovieVO)
-
-    suspend fun deleteAllMovies()
-
+     suspend fun deleteAllMovies()
 
 }

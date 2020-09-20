@@ -1,43 +1,33 @@
 package mk.learner.daggerhiltlab.datas.source.remote
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import mk.learner.daggerhiltlab.datas.MovieDataSource
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
-import mk.learner.daggerhiltlab.utils.Resource
+import mk.learner.daggerhiltlab.datas.responses.MovieListResponse
+import mk.learner.daggerhiltlab.utils.Results
+import retrofit2.Response
 import javax.inject.Inject
 
 class MovieRemoteDataSource @Inject constructor(
-    private val movieService: MovieApi
+    private val movieApiHelperImpl: MovieApiHelperImpl
 ):  MovieDataSource
 {
+    override suspend fun observeMovies(): Response<MovieListResponse> = movieApiHelperImpl.getMovies()
 
-    private var MOVIE_SERVICE_DATA = LinkedHashMap<String, MovieVO>(0)
 
-    init{}
-
-    private val observableMovies = MutableLiveData<Resource<List<MovieVO>>>()
+    override suspend fun getMovies(): Results<List<MovieVO>> {
+        TODO("Not yet implemented")
+        }
 
     override suspend fun refreshMovies() {
-        observableMovies.value = getMovies()
+        TODO("Not yet implemented")
     }
 
     override suspend fun saveMovie(movieVO: MovieVO) {
-        MOVIE_SERVICE_DATA[movieVO.id.toString()] = movieVO
     }
 
     override suspend fun deleteAllMovies() {
-      MOVIE_SERVICE_DATA.clear()
-    }
 
-    override fun observeMovies(): LiveData<Resource<List<MovieVO>>> {
-        return observableMovies
-    }
-
-       override suspend fun getMovies(): Resource<List<MovieVO>> {
-        // val moviesList=   movieService.getPopularMovies(PARAM_API_ACCESS_TOKEN, LANGUAGE,PAGE_ID)
-        val moviesList = observableMovies.value?.data
-         return Resource.success(moviesList)
     }
 
 }

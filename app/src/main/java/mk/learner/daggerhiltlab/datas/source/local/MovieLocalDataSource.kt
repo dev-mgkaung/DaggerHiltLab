@@ -7,25 +7,32 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mk.learner.daggerhiltlab.datas.MovieDataSource
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
-import mk.learner.daggerhiltlab.utils.Resource
+import mk.learner.daggerhiltlab.datas.responses.MovieListResponse
+import mk.learner.daggerhiltlab.utils.Results
+import retrofit2.Response
 
 class MovieLocalDataSource internal constructor(
     private val movieDao: MovieDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : MovieDataSource {
 
-    override fun observeMovies(): LiveData<Resource<List<MovieVO>>> {
-        return movieDao.observeMovies().map {
-            Resource.success(it)
-        }
+    override suspend fun observeMovies(): Response<MovieListResponse> {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun getMovies(): Resource<List<MovieVO>> = withContext(ioDispatcher)
+//    override fun observeMovies(): LiveData<Results<List<MovieVO>>> {
+//      //  movieDao.insertMovieList(listOf(MovieVO(1,"fff","aaa","ff","ff")))
+//        return movieDao.observeMovies().map {
+//            Results.success(it)
+//        }
+//    }
+
+    override suspend fun getMovies(): Results<List<MovieVO>> = withContext(ioDispatcher)
     {
         return@withContext try {
-            Resource.success(movieDao.getMoviesList())
+            Results.success(movieDao.getMoviesList())
         } catch (e: Exception) {
-            Resource.error(e.message.toString(),null)
+            Results.error(e.message.toString(),null)
         }
     }
 

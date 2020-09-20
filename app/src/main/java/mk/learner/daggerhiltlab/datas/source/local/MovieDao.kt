@@ -20,10 +20,10 @@ interface MovieDao {
     suspend fun getMovieById(movie_id: Int): MovieVO?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovieList(_movies: List<MovieVO?>)
+    suspend fun insertMovieList(movies: List<MovieVO?>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovie(_movies: MovieVO)
+    suspend fun insertMovie(movies: MovieVO)
 
     @Update
     suspend fun updateMovie(movie: MovieVO): Int

@@ -1,5 +1,6 @@
 package mk.learner.daggerhiltlab.ui.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,8 @@ import coil.load
 import kotlinx.android.synthetic.main.movie_item_layout.view.*
 import mk.learner.daggerhiltlab.R
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
+import mk.learner.daggerhiltlab.utils.BASE_IMAGE_URL
+
 
 class MovieAdapter(
     private val movies: ArrayList<MovieVO>
@@ -17,7 +20,7 @@ class MovieAdapter(
         fun bind(movie: MovieVO) {
             itemView.text_MovieName.text = movie.original_title
             itemView.text_MovieDescription.text = movie.overview
-            itemView.image_MoviePoster.load(movie.backdrop_path)
+            itemView.image_MoviePoster.load("$BASE_IMAGE_URL${movie.poster_path}")
         }
     }
 

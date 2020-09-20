@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
 
 data class MovieListResponse(
-    @SerializedName("results")  val results: ArrayList<MovieVO?>? = null
+    @SerializedName("results")  val results: List<MovieVO>
 )

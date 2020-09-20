@@ -2,6 +2,7 @@ package mk.learner.daggerhiltlab.di
 
 import android.content.Context
 import androidx.room.Room
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,8 @@ import mk.learner.daggerhiltlab.datas.MovieRepository
 import mk.learner.daggerhiltlab.datas.source.local.MovieDatabase
 import mk.learner.daggerhiltlab.datas.source.local.MovieLocalDataSource
 import mk.learner.daggerhiltlab.datas.source.remote.MovieApi
+import mk.learner.daggerhiltlab.datas.source.remote.MovieApiHelper
+import mk.learner.daggerhiltlab.datas.source.remote.MovieApiHelperImpl
 import mk.learner.daggerhiltlab.datas.source.remote.MovieRemoteDataSource
 import mk.learner.daggerhiltlab.utils.BASE_URL
 import okhttp3.OkHttpClient
@@ -40,8 +43,8 @@ object AppModule {
     @Singleton
     @RemoteMoviesDataSource
     @Provides
-    fun provideMoviesRemoteDataSource(movieApi: MovieApi): MovieDataSource {
-        return MovieRemoteDataSource(movieApi)
+    fun provideMoviesRemoteDataSource(movieApiHelperImpl: MovieApiHelperImpl): MovieDataSource {
+        return MovieRemoteDataSource(movieApiHelperImpl)
     }
 
     @Singleton
@@ -102,6 +105,10 @@ object AppModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): MovieApi = retrofit.create(MovieApi::class.java)
 
+
+    @Provides
+    @Singleton
+    fun provideApiHelper(apiHelper: MovieApiHelperImpl): MovieApiHelper = apiHelper
 }
 
 

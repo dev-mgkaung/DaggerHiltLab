@@ -17,6 +17,7 @@ import mk.learner.daggerhiltlab.utils.Status
 class MainActivity : AppCompatActivity() {
 
     private val mainViewModel : MovieViewModel by viewModels()
+
     private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                     movie_recyclerView.visibility = View.GONE
                 }
                 Status.ERROR -> {
-                    //Handle Error
                     progressBar.visibility = View.GONE
                     Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                 }
@@ -55,5 +55,9 @@ class MainActivity : AppCompatActivity() {
     private fun renderList(users: List<MovieVO>) {
         adapter.addData(users)
         adapter.notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val NO_OF_COLUMNS = 2
     }
 }

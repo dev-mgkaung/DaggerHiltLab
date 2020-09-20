@@ -1,38 +1,46 @@
 package mk.learner.daggerhiltlab.ui.home
 
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import mk.learner.daggerhiltlab.datas.MovieRepository
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
-import mk.learner.daggerhiltlab.utils.NetworkHelper
-import mk.learner.daggerhiltlab.utils.Resource
+import mk.learner.daggerhiltlab.utils.Results
 
 class MovieViewModel @ViewModelInject constructor(
-    private val moviesRepository: MovieRepository,
-    private val networkHelper: NetworkHelper
+    private val movieRepository: MovieRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _movies = MutableLiveData<Resource<List<MovieVO>>>()
+    private val moviesLiveData : MutableLiveData<Results<List<MovieVO>>> = MutableLiveData()
 
-    val movies: LiveData<Resource<List<MovieVO>>>
-        get() = _movies
+    val movies: LiveData<Results<List<MovieVO>>>
+        get() = moviesLiveData
 
     init {
         fetchMovies()
     }
 
     private fun fetchMovies() {
+
         viewModelScope.launch {
-           _movies.postValue(Resource.loading(null))
-            if (networkHelper.isNetworkConnected()) {
-                moviesRepository.observeMovies().let {
-                    if (it.isSuccessful) {
-                        _movies.postValue(Resource.success(it.body()))
-                    } else _movies.postValue(Resource.error(it.errorBody().toString(), null))
-                }
-            }
-            else _movies.postValue(Resource.error("No Internet connection",null))
+
+            moviesLiveData.postValue(Results.loading(null))
+                    try{
+                        val response = movieRepository.observeMovies()
+                        if(response.isSuccessful){
+                            moviesLiveData.postValue(Results.success(response.body()?.results))
+                        }else{
+                            moviesLiveData.postValue(Results.error("",null))
+                        }
+                    }catch (e : Exception){
+                        moviesLiveData.postValue(Results.error("",null))
+                    }
+
         }
     }
+
+
 }
+
