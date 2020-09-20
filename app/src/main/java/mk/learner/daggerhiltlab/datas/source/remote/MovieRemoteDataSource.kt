@@ -1,6 +1,5 @@
 package mk.learner.daggerhiltlab.datas.source.remote
 
-import androidx.lifecycle.LiveData
 import mk.learner.daggerhiltlab.datas.MovieDataSource
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
 import mk.learner.daggerhiltlab.datas.responses.MovieListResponse
@@ -19,15 +18,11 @@ class MovieRemoteDataSource @Inject constructor(
         TODO("Not yet implemented")
         }
 
-    override suspend fun refreshMovies() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun refreshMovies() {}
 
-    override suspend fun saveMovie(movieVO: MovieVO) {
-    }
+    override suspend fun saveMovieList(movieVO: List<MovieVO>) {}
 
-    override suspend fun deleteAllMovies() {
+    override suspend fun deleteAllMovies() {}
 
-    }
 
 }

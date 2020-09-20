@@ -20,12 +20,6 @@ class MovieLocalDataSource internal constructor(
         TODO("Not yet implemented")
     }
 
-//    override fun observeMovies(): LiveData<Results<List<MovieVO>>> {
-//      //  movieDao.insertMovieList(listOf(MovieVO(1,"fff","aaa","ff","ff")))
-//        return movieDao.observeMovies().map {
-//            Results.success(it)
-//        }
-//    }
 
     override suspend fun getMovies(): Results<List<MovieVO>> = withContext(ioDispatcher)
     {
@@ -40,8 +34,8 @@ class MovieLocalDataSource internal constructor(
         //None
     }
 
-    override suspend fun saveMovie(movieVO: MovieVO) = withContext(ioDispatcher) {
-        movieDao.insertMovie(movieVO)
+    override suspend fun saveMovieList(movieVO: List<MovieVO>) = withContext(ioDispatcher) {
+        movieDao.insertMovieList(movieVO)
     }
 
     override suspend fun deleteAllMovies() = withContext(ioDispatcher) {

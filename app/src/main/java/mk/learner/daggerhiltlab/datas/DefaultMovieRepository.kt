@@ -10,48 +10,29 @@ class DefaultMovieRepository @Inject constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : MovieRepository {
 
+    init { }
 
-    override suspend fun observeMovies() = moviesRemoteDataSource.observeMovies()
+    override suspend fun observeMoviesFromNewtwork() = moviesRemoteDataSource.observeMovies()
 
+    override suspend fun observeMoviesFromDB() = moviesLocalDataSource.getMovies()
 
     override suspend fun refreshMovies() {
         updateMoviesFromRemoteDataSource()
     }
 
-
     private suspend fun updateMoviesFromRemoteDataSource() {
-        val remoteMovies = moviesRemoteDataSource.getMovies()
-
-
-
-//        if (remoteMovies is Resource.success) {
-//
-//            moviesLocalDataSource.deleteAllMovies()
-//
-//            remoteMovies.data.forEach { movie ->
-//                moviesLocalDataSource.saveMovie(movie)
-//            }
-//
-//        } else if (remoteMovies is Resource.e) {
-//            throw remoteMovies.exception
-//        }
-    }
-
-    override suspend fun saveMovies(movie: MovieVO) {
-        coroutineScope {
-            launch { moviesRemoteDataSource.saveMovie(movie) }
-            launch { moviesLocalDataSource.saveMovie(movie) }
-        }
-    }
-
-    override suspend fun deleteAllMovies() {
-        withContext(ioDispatcher) {
-            coroutineScope {
-                launch { moviesRemoteDataSource.deleteAllMovies() }
-                launch { moviesLocalDataSource.deleteAllMovies() }
+        try {
+            val remoteMovies = moviesRemoteDataSource.observeMovies()
+            if (remoteMovies.isSuccessful) {
+                remoteMovies?.body()?.results?.let { moviesLocalDataSource.saveMovieList(it) }
             }
-        }
+        }catch (e : Exception)
+        {}
     }
+
+    override suspend fun saveMovies(movie: MovieVO) {}
+
+    override suspend fun deleteAllMovies() {}
 }
 
 

@@ -1,6 +1,5 @@
 package mk.learner.daggerhiltlab.datas
 
-import androidx.lifecycle.LiveData
 import mk.learner.daggerhiltlab.datas.entities.MovieVO
 import mk.learner.daggerhiltlab.datas.responses.MovieListResponse
 import mk.learner.daggerhiltlab.utils.Results
@@ -14,7 +13,7 @@ interface MovieDataSource {
 
      suspend fun refreshMovies()
 
-     suspend fun saveMovie(movieVO: MovieVO)
+     suspend fun saveMovieList(movieVO: List<MovieVO>)
 
      suspend fun deleteAllMovies()
 

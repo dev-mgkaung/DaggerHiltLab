@@ -25,19 +25,9 @@ class MovieViewModel @ViewModelInject constructor(
     private fun fetchMovies() {
 
         viewModelScope.launch {
-
             moviesLiveData.postValue(Results.loading(null))
-                    try{
-                        val response = movieRepository.observeMovies()
-                        if(response.isSuccessful){
-                            moviesLiveData.postValue(Results.success(response.body()?.results))
-                        }else{
-                            moviesLiveData.postValue(Results.error("",null))
-                        }
-                    }catch (e : Exception){
-                        moviesLiveData.postValue(Results.error("",null))
-                    }
-
+            movieRepository.refreshMovies()
+            moviesLiveData.postValue(movieRepository.observeMoviesFromDB())
         }
     }
 

@@ -9,7 +9,9 @@ import retrofit2.Response
 
 interface MovieRepository
 {
-    suspend  fun observeMovies(): Response<MovieListResponse>
+    suspend  fun observeMoviesFromNewtwork(): Response<MovieListResponse>
+
+    suspend fun observeMoviesFromDB() : Results<List<MovieVO>>
 
     suspend fun refreshMovies()
 
