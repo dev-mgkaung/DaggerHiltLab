@@ -9,6 +9,9 @@ This is a demo app built using 'Hilt' a new dependency injection framework for A
 3. **ui**: View classes along with their corresponding ViewModel.
 4. **utils**: Utility classes.
 
+## CICd integration testing (continous Integration and continous delivery)
+ Referecne Link https://blog.mindorks.com/github-actions-for-android
+ 
 ## Android Development and Architecture
 
 * The entire codebase is in [Kotlin](https://kotlinlang.org/)
@@ -20,6 +23,5 @@ This is a demo app built using 'Hilt' a new dependency injection framework for A
 
 ![Screen 1](https://github.com/dev-mgkaung/DaggerHiltLab/blob/master/screen_one.jpg) ![Screen 2](https://github.com/dev-mgkaung/DaggerHiltLab/blob/master/screen_two.jpg)
 
-## CiCd integration testing
- Referecne Link https://blog.mindorks.com/github-actions-for-android
+
 
