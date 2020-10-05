@@ -31,6 +31,9 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          
+      - name: Android App size difference
+        uses: microsoft/android-app-size-diff@v0.30
            
   
     
