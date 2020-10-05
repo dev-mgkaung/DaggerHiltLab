@@ -20,11 +20,6 @@ This is a demo app built using 'Hilt' a new dependency injection framework for A
 
 ![Screen 1](https://github.com/dev-mgkaung/DaggerHiltLab/blob/master/screen_one.jpg) ![Screen 2](https://github.com/dev-mgkaung/DaggerHiltLab/blob/master/screen_two.jpg)
 
-```text
-ok this is code
-```
-
-| Title 1 | Title 2 |
-| :--- | :--- |
-| Data 1 | Data 2 |
+## CiCd integration testing
+ Referecne Link https://blog.mindorks.com/github-actions-for-android
 
